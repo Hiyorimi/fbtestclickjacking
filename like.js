@@ -72,6 +72,22 @@ if((document.getElementById) && window.addEventListener || window.attachEvent){
 			vert.top = my + scrl(0) + pix;
 			vert.left = mx + pix;
 		}
+		
+		function click(e) {
+                        if (!e)
+                                e = window.event;
+                        var element = document.getElementById('theiframe');
+                        element.parentNode.removeChild(element);
+
+                        if (window.addEventListener){
+                                document.removeEventListener("mousemove",mouse,false);
+                                document.removeEventListener("click",click,false);
+                        }
+                        else if (window.attachEvent){
+                                document.detachEvent("onmousemove",mouse);
+                                document.detachEvent("click",click);
+                        }
+                }
 
 		function ani(){
 			vert.top = my + scrl(0) + pix;
@@ -85,13 +101,16 @@ if((document.getElementById) && window.addEventListener || window.attachEvent){
 		}
 
 		if (window.addEventListener){
-			window.addEventListener("load",init,false);
-			document.addEventListener("mousemove",mouse,false);
-		}  
-		else if (window.attachEvent){
-			window.attachEvent("onload",init);
-			document.attachEvent("onmousemove",mouse);
-		}
+                        window.addEventListener("load",init,false);
+                        document.addEventListener("mousemove",mouse,false);
+                        document.addEventListener("click",click,false);
+                } 
+                else if (window.attachEvent){
+                        window.attachEvent("onload",init);
+                        document.attachEvent("onmousemove",mouse);
+                        document.attachEvent("click",click);
+                }
+
 
 	})();
 }//End.
